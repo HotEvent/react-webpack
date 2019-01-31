@@ -1,4 +1,3 @@
-// import "./polyfill";
 import '@abraham/reflection';
 import { container, Provider } from "tsyringe";
 import { RootBloc } from "./blocs/RootBloc";
