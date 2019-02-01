@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const webpack = require('webpack');
 module.exports = {
     entry: {
         app: './src/index.tsx',
@@ -39,6 +39,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js']
     },
     plugins: [
+        new webpack.DefinePlugin({ "process.env.PUBLIC_URL": JSON.stringify(".") }),
         new HtmlWebpackPlugin({
             title: 'Development',
             template: './src/index.html'

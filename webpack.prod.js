@@ -3,8 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const common = require('./webpack.common.js');
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = merge(common, {
@@ -49,6 +48,9 @@ module.exports = merge(common, {
         }
     },
     plugins: [
+        new CopyWebpackPlugin([
+            { from: 'src/static' }
+        ]),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional

@@ -9,6 +9,7 @@ export default function App() {
         <button onClick={() => userBloc.update()}>update user</button>
         <button onClick={() => itemBloc.update()}>update item</button>
         <div>{item.item}</div>
+        <a href={`${process.env.PUBLIC_URL}/zh.json`}>download</a>
         {/* <img src={emj} alt="" /> */}
         <div>{user.name}</div>
     </div>
