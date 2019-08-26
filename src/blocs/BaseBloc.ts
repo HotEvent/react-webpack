@@ -17,7 +17,7 @@ export class BaseBloc<T>{
     }
 
     reset() {
-        this.patchState(this.initState);
+        this.updateState(this.initState);
     }
 
     get state() {
