@@ -8,9 +8,10 @@ export default function App() {
     const { item, user } = useBehaviorSubject(appState$);
     return <div>
         {user.name}
+        {item.item}
         <form>
-            <input type="text" value={user.name} onChange={e => { rootBloc.user.changeName(e.target.value) }} />
-            <input type="text" />
+            <input type="text" value={user.name} onChange={e => { rootBloc.userBloc.changeName(e.target.value) }} />
+            <input type="text" value={item.item} onChange={e => { rootBloc.itemBloc.changeName(e.target.value) }}/>
         </form>
     </div>
 }

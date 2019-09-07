@@ -1,16 +1,22 @@
-import { UserBloc } from "./UserBloc";
-import { ItemBloc } from "./ItemBloc";
+import { UserBloc, User } from "./UserBloc";
+import { ItemBloc, Item } from "./ItemBloc";
 import { BehaviorSubject, combineLatest } from "rxjs";
 
 const rootBloc = {
-  user: new UserBloc({ name: '123' }),
-  item: new ItemBloc({ item: 'item' })
+  userBloc: new UserBloc({ name: '123' }),
+  itemBloc: new ItemBloc({ item: 'item' })
 };
+
+type AppState = {
+  user: User,
+  item: Item
+}
 
 const keys = Object.keys(rootBloc);
 
-const appState:any = keys.reduce((pre, current, currentIndex) => {
-  pre[current] = rootBloc[current].state$.value;
+const appState = keys.reduce((pre, current, currentIndex) => {
+  const key = current.replace('Bloc', '');
+  pre[key] = rootBloc[current].state$.value;
   return pre;
 }, {});
 
@@ -20,13 +26,14 @@ const states$ = keys.map(key => {
 
 const state$ = combineLatest(states$, (...state) => {
   const root = keys.reduce((pre, current, currentIndex) => {
-    pre[current] = state[currentIndex];
+    const key = current.replace('Bloc', '');
+    pre[key] = state[currentIndex];
     return pre;
   }, {});
   return root;
 });
 
-const appState$ = new BehaviorSubject(appState);
+const appState$ = new BehaviorSubject(appState) as BehaviorSubject<AppState>;
 
 state$.subscribe(appState$);
 
