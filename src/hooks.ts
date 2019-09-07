@@ -1,4 +1,4 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { useState, useEffect } from "react";
 import { filter } from "rxjs/operators";
 
@@ -11,7 +11,20 @@ function useBehaviorSubject<T>(behaviorSubject: BehaviorSubject<T>) {
             )
             .subscribe(value => setState(value));
         return () => sub.unsubscribe();
-    }, [])
+    }, []);
+    return state;
+}
+
+function useObservable<T>(observable: Observable<T>) {
+    const [state, setState] = useState({});
+    useEffect(() => {
+        let sub = observable
+            .pipe(
+                filter(value => value !== state)
+            )
+            .subscribe(value => setState(value));
+        return () => sub.unsubscribe();
+    }, []);
     return state;
 }
 
@@ -34,4 +47,4 @@ function useBloc<T = any>(bloc: Bloc<T>) {
 }
 
 
-export { useBehaviorSubject, useBloc }
+export { useBehaviorSubject, useBloc, useObservable }
