@@ -3,8 +3,8 @@ import { ItemBloc, Item } from "./ItemBloc";
 import { BehaviorSubject, combineLatest } from "rxjs";
 
 const rootBloc = {
-  userBloc: new UserBloc({ name: '123' }),
-  itemBloc: new ItemBloc({ item: 'item' })
+  userBloc: new UserBloc({name:'123'}),
+  itemBloc: new ItemBloc({item:'456'})
 };
 
 type AppState = {

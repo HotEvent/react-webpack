@@ -1,7 +1,7 @@
 import { BaseBloc } from "./BaseBloc";
 
-export class Item {
-    item = 'item';
+export interface Item {
+    item: string;
 }
 export class ItemBloc extends BaseBloc<Item>{
     constructor(public initState: Item) {

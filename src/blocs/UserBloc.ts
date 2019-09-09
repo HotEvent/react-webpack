@@ -1,8 +1,8 @@
 // import { User } from "./User";
 import { BaseBloc } from "./BaseBloc";
 
-export class User {
-    name = '123';
+export interface User {
+    name: string;
 }
 
 export class UserBloc extends BaseBloc<User>{
@@ -10,7 +10,7 @@ export class UserBloc extends BaseBloc<User>{
         super(initState)
     }
 
-    changeName(name:string) {
+    changeName(name: string) {
         this.patchState({ name });
     }
 }
