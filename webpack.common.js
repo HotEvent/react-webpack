@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const tsImportPluginFactory = require('ts-import-plugin');
+console.log(tsImportPluginFactory);
 module.exports = {
     entry: {
         app: './src/index.tsx',
@@ -7,16 +9,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true,
-                            experimentalWatchApi: true,
-                        },
-                    },],
-                exclude: /node_modules/
+                test: /\.(ts|tsx)$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                    transpileOnly: true,
+                    getCustomTransformers: () => ({
+                        before: [tsImportPluginFactory({
+                            libraryName: 'antd',
+                            libraryDirectory: 'es',
+                            style: 'css'
+                        })]
+                    })
+                }
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,

@@ -14,8 +14,8 @@ module.exports = merge(common, {
                 test: /\.css$/,
                 use: [
                     "style-loader", // creates style nodes from JS strings
-                    "postcss-loader",
                     "css-loader", // translates CSS into CommonJS
+                    "postcss-loader"
                 ]
             },
             {

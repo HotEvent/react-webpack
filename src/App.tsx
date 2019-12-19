@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '.';
-import { Button } from "antd";
 import {
   Link, BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 import BaseLayout from './components/BaseLayout';
 import Login from './pages/Login';
+import { Button } from 'antd';
+
 const Node: React.FC<{ text: string }> = (props) => {
   return (
     <div>{props.text}</div>
@@ -20,16 +21,17 @@ const App: React.FC = () => {
 
   }, []);
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <BaseLayout />
-        </Route>
-      </Switch>
-    </Router>
+    // <Router>
+    //   <Switch>
+    //     <Route path="/login">
+    //       <Login />
+    //     </Route>
+    //     <Route path="/">
+    //       <BaseLayout />
+    //     </Route>
+    //   </Switch>
+    // </Router>
+    <Button>fff</Button>
   );
 }
 

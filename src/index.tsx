@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
+import App from './App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -8,8 +8,9 @@ import { Epic, combineEpics, createEpicMiddleware } from 'redux-observable';
 import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import './styles/style.scss';
+import './styles/foo.less';
 export interface AppState {
     name: string
     age:number
@@ -50,5 +51,5 @@ const epicMiddleware = createEpicMiddleware();
 let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(epicMiddleware)));
 epicMiddleware.run(rootEpic);
 ReactDOM.render(<Provider store={store}>
-    <div></div>
+    <App />
 </Provider> , document.getElementById('root'));
