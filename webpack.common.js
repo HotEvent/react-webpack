@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const tsImportPluginFactory = require('ts-import-plugin');
-console.log(tsImportPluginFactory);
 module.exports = {
     entry: {
         app: './src/index.tsx',

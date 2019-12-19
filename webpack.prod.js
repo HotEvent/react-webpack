@@ -6,9 +6,10 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = merge(common, {
     mode: 'production',
-    // devtool: 'source-map',
+    devtool: 'source-map',
     output: {
         filename: '[name].[chunkhash].js',
         path: path.resolve(__dirname, './dist')
@@ -74,6 +75,7 @@ module.exports = merge(common, {
             filename: "[name].[contenthash].css",
             chunkFilename: "[id].[contenthash].css"
         }),
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin(['dist']),
+        new BundleAnalyzerPlugin()
     ]
 });
