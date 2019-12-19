@@ -8,7 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = merge(common, {
     mode: 'production',
-    devtool: 'source-map',
+    // devtool: 'source-map',
     output: {
         filename: '[name].[chunkhash].js',
         path: path.resolve(__dirname, './dist')
@@ -28,6 +28,23 @@ module.exports = merge(common, {
                     "css-loader", // translates CSS into CommonJS
                     "postcss-loader",
                     "sass-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "postcss-loader",
+                    "less-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "postcss-loader"
                 ]
             },
         ]
