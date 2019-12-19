@@ -21,17 +21,16 @@ const App: React.FC = () => {
 
   }, []);
   return (
-    // <Router>
-    //   <Switch>
-    //     <Route path="/login">
-    //       <Login />
-    //     </Route>
-    //     <Route path="/">
-    //       <BaseLayout />
-    //     </Route>
-    //   </Switch>
-    // </Router>
-    <Button>fff</Button>
+    <Router>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          <BaseLayout />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
