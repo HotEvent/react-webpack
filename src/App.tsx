@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '.';
 import {
   Link, BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 import BaseLayout from './components/BaseLayout';
 import Login from './pages/Login';
 import { Button } from 'antd';
+import { AppState } from './redux.config';
 
 const Node: React.FC<{ text: string }> = (props) => {
   return (

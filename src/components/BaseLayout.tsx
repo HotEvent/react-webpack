@@ -1,23 +1,17 @@
 import { Layout, Menu, Icon } from 'antd';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../redux.config';
 
 const { Header, Sider, Content } = Layout;
 
-class BaseLayout extends React.Component {
-  state = {
-    collapsed: false,
-  };
+const BaseLayout:React.FC = () => {
+  const dispatch = useDispatch();
+  const menu = useSelector<AppState, {collapsed: boolean}>(state => state.menu);
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
-
-  render() {
     return (
       <Layout>
-        <Sider trigger={null} width={256} collapsible collapsed={this.state.collapsed}>
+        <Sider trigger={null} width={256} collapsible collapsed={menu.collapsed}>
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
@@ -38,8 +32,10 @@ class BaseLayout extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }}>
             <Icon
               className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
+              type={menu.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={e => {
+                dispatch({type:'toogle_menu'});
+              }}
             />
           </Header>
           <Content
@@ -56,6 +52,5 @@ class BaseLayout extends React.Component {
       </Layout>
     );
   }
-}
 
 export default BaseLayout;
