@@ -9,13 +9,13 @@ import { of } from "rxjs";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 
 import { composeWithDevTools } from "redux-devtools-extension";
-import { menuReducer } from "./components/menu.redux";
+import { menuReducer, MenuData } from "./components/menu.redux";
 
 export interface AppState {
     name: string
     age:number
     table:any[]
-    menu:{collapsed: boolean} 
+    menu:MenuData
 }
 
 const tableReducer = (state: any[] = [], action: { type: string, payload: any }) => {
