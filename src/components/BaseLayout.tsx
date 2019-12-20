@@ -41,13 +41,28 @@ const BaseLayout:React.FC = () => {
           </Menu>
         </Sider>
         <Drawer
-          // title="Basic Drawer"
           placement="left"
           closable={false}
           onClose={e => {
             dispatch({type:'set_collapsed',payload:true});
           }}
+          bodyStyle={{padding:0}}
           visible={(!menu.collapsed)&&menu.breakpoint}
+        >
+          <Sider trigger={null} 
+          width={256} 
+          style={{height:'100vh'}}
+        // breakpoint="md"
+        // collapsedWidth={menu.breakpoint?0:80}
+        // onBreakpoint={breakpoint => {
+        //   dispatch({type:'set_breakpoint',payload:breakpoint});
+        //   if(breakpoint){
+        //     dispatch({type:'set_collapsed',payload:true});
+        //   }else{
+        //     dispatch({type:'set_collapsed',payload:false});
+        //   }
+        // }}
+        // collapsible collapsed={menu.collapsed}
         >
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
@@ -64,6 +79,8 @@ const BaseLayout:React.FC = () => {
               <span>nav 3</span>
             </Menu.Item>
           </Menu>
+        </Sider>
+       
         </Drawer>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
