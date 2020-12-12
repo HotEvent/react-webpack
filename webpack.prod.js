@@ -14,12 +14,12 @@ module.exports = merge(common, {
         path: path.resolve(__dirname, './dist'),
         publicPath: "/",
     },
-    stats: {
-        // Examine all modules
-        maxModules: Infinity,
-        // Display bailout reasons
-        optimizationBailout: true
-    },
+    // stats: {
+    //     // Examine all modules
+    //     maxModules: Infinity,
+    //     // Display bailout reasons
+    //     optimizationBailout: true
+    // },
     module: {
         rules: [
             {
@@ -37,7 +37,13 @@ module.exports = merge(common, {
                     MiniCssExtractPlugin.loader,
                     "css-loader", // translates CSS into CommonJS
                     "postcss-loader",
-                    "less-loader" // compiles Sass to CSS, using Node Sass by default
+                    {
+                        loader: "less-loader",
+                        options: {
+                            // modifyVars: antdVar,
+                            javascriptEnabled: true,
+                        },
+                    }
                 ]
             },
             {
@@ -52,7 +58,7 @@ module.exports = merge(common, {
     },
     optimization: {
         minimizer: [
-            new TerserPlugin({ sourceMap: true }),
+            new TerserPlugin(),
             new OptimizeCSSAssetsPlugin({ cssProcessorOptions: { map: { inline: false, annotation: true, } } })
         ],
         splitChunks: {
@@ -66,9 +72,11 @@ module.exports = merge(common, {
         }
     },
     plugins: [
-        new CopyWebpackPlugin([
-            { from: 'src/static' }
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'src/static' }
+            ]
+        }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional

@@ -8,7 +8,7 @@ import { Epic, combineEpics, createEpicMiddleware } from 'redux-observable';
 import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
 import './styles/style.scss';
 export interface AppState {
     name: string

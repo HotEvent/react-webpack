@@ -39,7 +39,13 @@ module.exports = merge(common, {
                     "style-loader", // creates style nodes from JS strings
                     "css-loader", // translates CSS into CommonJS
                     "postcss-loader",
-                    "less-loader" // compiles Sass to CSS, using Node Sass by default
+                    {
+                        loader: "less-loader",
+                        options: {
+                            // modifyVars: antdVar,
+                            javascriptEnabled: true,
+                        },
+                    }
                 ]
             }
         ]

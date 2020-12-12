@@ -8,6 +8,8 @@
         "allowJs": true,
         "jsx": "react",
         "rootDir": "src",
+        "baseUrl": "./",
+        
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
