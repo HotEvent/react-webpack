@@ -12,7 +12,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: './src/static',
         historyApiFallback: true,
-        host:'0.0.0.0'
+        // host:'0.0.0.0'
     },
     module:{
         rules:[

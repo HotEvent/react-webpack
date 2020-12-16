@@ -30,7 +30,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        plugins:[new TsconfigPathsPlugin({})]
+        // plugins:[new TsconfigPathsPlugin({})]
     },
     plugins: [
         new webpack.DefinePlugin({ "process.env.PUBLIC_URL": JSON.stringify(".") }),
@@ -38,8 +38,8 @@ module.exports = {
             title: 'Development',
             template: './src/index.html'
         }),
-        new ScriptExtHtmlWebpackPlugin({
-            module: 'app'
-        })
+        // new ScriptExtHtmlWebpackPlugin({
+        //     module: 'app'
+        // })
     ],
 };

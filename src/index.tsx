@@ -8,8 +8,17 @@ import { Epic, combineEpics, createEpicMiddleware } from 'redux-observable';
 import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
-import 'antd/dist/antd.less';
-import './styles/style.scss';
+// import 'antd/dist/antd.less';
+// import './styles/style.scss';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { gql } from '@apollo/client';
+import Foo from './Foo';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:5000/graphql',
+  cache: new InMemoryCache()
+});
+
 export interface AppState {
     name: string
     age:number
@@ -49,6 +58,6 @@ const rootReducer = combineReducers({table:tableReducer,name:nameReducer});
 const epicMiddleware = createEpicMiddleware();
 let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(epicMiddleware)));
 epicMiddleware.run(rootEpic);
-ReactDOM.render(<Provider store={store}>
-    <div></div>
-</Provider> , document.getElementById('root'));
+ReactDOM.render( <ApolloProvider client={client}>
+    <Foo />
+  </ApolloProvider> , document.getElementById('root'));
