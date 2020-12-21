@@ -10,9 +10,9 @@ module.exports = merge(common, {
         publicPath: "/",
     },
     devServer: {
-        contentBase: './src/static',
+        static: './src/static',
         historyApiFallback: true,
-        // host:'0.0.0.0'
+        host:'0.0.0.0'
     },
     module:{
         rules:[

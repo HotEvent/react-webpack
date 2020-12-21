@@ -8,21 +8,31 @@ import { Epic, combineEpics, createEpicMiddleware } from 'redux-observable';
 import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
-// import 'antd/dist/antd.less';
+import 'antd/dist/antd.less';
 // import './styles/style.scss';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { gql } from '@apollo/client';
 import Foo from './Foo';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import Pro from './Pro';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
-  cache: new InMemoryCache()
+    uri: 'http://localhost:5000/graphql',
+    defaultOptions: {
+        query: {
+            fetchPolicy: 'network-only'
+        },
+        watchQuery: {
+            fetchPolicy: 'network-only'
+        }
+    },
+    cache: new InMemoryCache()
 });
+
+export { client }
 
 export interface AppState {
     name: string
-    age:number
-    table:any[]
+    age: number
+    table: any[]
 }
 
 const tableReducer = (state: any[] = [], action: { type: string, payload: any }) => {
@@ -35,29 +45,43 @@ const tableReducer = (state: any[] = [], action: { type: string, payload: any })
     }
 };
 
-const tableEpic:Epic = action$ => action$.ofType('table_start').pipe(
-    switchMap(action => 
+const tableEpic: Epic = action$ => action$.ofType('table_start').pipe(
+    switchMap(action =>
         ajax.getJSON('/list.json').pipe(
-            map((rs: any) => ({type:'table_success',payload:rs})),
-            catchError(e => of({type:'error',payload:e}))
-            ),
+            map((rs: any) => ({ type: 'table_success', payload: rs })),
+            catchError(e => of({ type: 'error', payload: e }))
+        ),
     )
 )
 
-const nameReducer = (state:string = '',action: { type: string, payload: any }) => {
+const nameReducer = (state: string = '', action: { type: string, payload: any }) => {
     switch (action.type) {
-        case 'remove': return state+'remove';
+        case 'remove': return state + 'remove';
         default:
             return state;
     }
 };
 
 const rootEpic = combineEpics(tableEpic);
-const rootReducer = combineReducers({table:tableReducer,name:nameReducer});
+const rootReducer = combineReducers({ table: tableReducer, name: nameReducer });
 
 const epicMiddleware = createEpicMiddleware();
 let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(epicMiddleware)));
 epicMiddleware.run(rootEpic);
-ReactDOM.render( <ApolloProvider client={client}>
-    <Foo />
-  </ApolloProvider> , document.getElementById('root'));
+ReactDOM.render(<
+    Provider store={store}>
+    <ApolloProvider client={client}>
+        <Pro />
+    </ApolloProvider>
+</Provider>, document.getElementById('root'));
+
+if (module.hot) {
+    module.hot.accept('./Pro', function() {
+        ReactDOM.render(<
+            Provider store={store}>
+            <ApolloProvider client={client}>
+                <Pro />
+            </ApolloProvider>
+        </Provider>, document.getElementById('root'));
+    })
+  }
