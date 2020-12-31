@@ -1,0 +1,24 @@
+ query AllTodos($first: Int,$offset: Int,$filter:TodoFilter) {
+    allTodos(first:$first,offset: $offset,filter:$filter) {
+      totalCount
+      nodes{
+        task
+        nodeId
+        
+      }
+    }
+  }
+
+  mutation CreateTodo($input: CreateTodoInput!) {
+    createTodo(input: $input) {
+      clientMutationId
+    }
+  }
+
+  
+  
+mutation DeleteTodo($input: DeleteTodoInput!) {
+    deleteTodo(input: $input) {
+      clientMutationId
+    }
+  }

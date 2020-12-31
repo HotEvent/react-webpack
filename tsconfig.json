@@ -9,7 +9,7 @@
         "jsx": "react",
         "rootDir": "src",
         "baseUrl": "./",
-        
+        "lib": ["ESNext","DOM"],
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,

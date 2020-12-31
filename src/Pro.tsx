@@ -6,6 +6,8 @@ import { TablePaginationConfig } from 'antd/lib/table';
 import { client } from './index';
 import { gql } from '@apollo/client';
 import ProForm, { ModalForm, ProFormDateRangePicker, ProFormSelect, ProFormText } from '@ant-design/pro-form';
+import { AllTodosDocument, CreateTodoDocument, DeleteTodoDocument } from './generated/graphql';
+import { observer, useLocalObservable } from 'mobx-react';
 const buildFilter = value => {
   return {
     task: { includes: value.task }
@@ -18,34 +20,6 @@ const getVariables = (pagination: TablePaginationConfig, formData: any) => {
     first: pagination.pageSize, offset: (pagination.current - 1) * pagination.pageSize, filter
   }
 }
-
-const Read = gql`
-  query AllTodos($first: Int,$offset: Int,$filter:TodoFilter) {
-    allTodos(first:$first,offset: $offset,filter:$filter) {
-      totalCount
-      nodes{
-        task
-        done
-        nodeId
-      }
-    }
-  }
-  
-`;
-const Create = gql`
-  mutation CreateTodo($input: CreateTodoInput!) {
-    createTodo(input: $input) {
-      clientMutationId
-    }
-  }
-`
-const Delete = gql`
-  mutation DeleteTodo($input: DeleteTodoInput!) {
-    deleteTodo(input: $input) {
-      clientMutationId
-    }
-  }
-`;
 interface GithubIssueItem {
   url: string;
   id: number;
@@ -144,7 +118,7 @@ const columns: ProColumns<{ nodeId: string, task: string, done: boolean }>[] = [
       </a>,
       <a rel="noopener noreferrer" key="delete" onClick={async e => {
         const res = await client.mutate({
-          mutation: Delete, variables: { input: { nodeId: record.nodeId } }
+          mutation: DeleteTodoDocument, variables: { input: { nodeId: record.nodeId } }
         });
         action.reload()
       }}>
@@ -177,20 +151,22 @@ const getCurrent = (total: number, size: number) => {
   }
 }
 
-export default () => {
+export default observer(() => {
   const actionRef = useRef<ActionType>(null);
-  const [current, setCurrent] = useState(0);
+  const state = useLocalObservable(()=>({
+    current:0
+  }));
   return (
     <ProTable<{ task: string, nodeId: string, done: boolean }>
       columns={columns}
       actionRef={actionRef}
-      request={async (params) => {
-        console.log(params)
-        return client.query({ query: Read, variables: getVariables(params, {}) })
+      request={(params) => {
+        console.log('fetch')
+        return client.query({ query: AllTodosDocument, variables: getVariables(params, {}) })
           .then(res => {
             let newCurrent = getCurrent(res.data.allTodos.totalCount, params.pageSize);
             if (newCurrent < params.current) {
-              setCurrent(newCurrent);
+              // state.current = newCurrent;
               return {
                 data: res.data.allTodos.nodes,
                 success: true,
@@ -198,7 +174,7 @@ export default () => {
 
               }
             } else {
-              setCurrent(params.current);
+              // state.current = params.current;
               return {
                 data: res.data.allTodos.nodes,
                 success: true,
@@ -222,13 +198,14 @@ export default () => {
       }}
       pagination={{
         pageSize: 5,
-        current
+        // current: state.current
       }}
       dateFormatter="string"
       headerTitle="高级表格"
       toolBarRender={() => [
         <ModalForm
           title="新建表单"
+          key="addMOdal"
           trigger={
             <Button type="primary">
               <PlusOutlined />
@@ -241,7 +218,7 @@ export default () => {
           onFinish={async (values) => {
             // await waitTime(2000);
             const res = await client.mutate({
-              mutation: Create,
+              mutation: CreateTodoDocument,
               variables: { input: { todo: values } }
             });
             console.log(values);
@@ -274,4 +251,4 @@ export default () => {
       ]}
     />
   );
-};
+});

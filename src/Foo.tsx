@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, InputNumber, Select, Table } from 'antd';
 import { TablePaginationConfig } from 'antd/lib/table';
 import { gql, useLazyQuery } from '@apollo/client';
+import { useAllTodosLazyQuery } from './generated/graphql';
 const { Option } = Select;
 
 const columns = [
@@ -27,21 +28,6 @@ const columns = [
   //   dataIndex: 'email',
   // },
 ];
-const EXCHANGE_RATES = gql`
-
-  query AllTodos1($first: Int,$offset: Int,$filter:TodoFilter) {
-    allTodos(first:$first,offset: $offset,filter:$filter) {
-      totalCount
-      nodes{
-        task
-        id
-        
-      }
-    }
-  }
-  
-`;
-
 
 let initPagination: TablePaginationConfig = {
   current: 1,
@@ -63,8 +49,7 @@ const getVariables = (pagination: TablePaginationConfig, formData: any) => {
 export default function App() {
   const [form] = Form.useForm();
   const [pagination, setPagination] = useState(initPagination);
-  const [loadGreeting, { called, loading, data }] = useLazyQuery(
-    EXCHANGE_RATES,
+  const [loadGreeting, { called, loading, data }] = useAllTodosLazyQuery(
     {
       notifyOnNetworkStatusChange: true
     }
@@ -120,7 +105,7 @@ export default function App() {
       </Form>
       <Table
         columns={columns}
-        rowKey={record => record.id}
+        rowKey={record => record.nodeId}
         dataSource={data?.allTodos?.nodes}
         pagination={{ ...pagination, total: data?.allTodos?.totalCount }}
         loading={loading}
