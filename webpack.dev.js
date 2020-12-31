@@ -14,6 +14,9 @@ module.exports = merge(common, {
         historyApiFallback: true,
         host:'0.0.0.0'
     },
+    // optimization:{
+    //     chunkIds:"named"
+    // },
     module:{
         rules:[
             {

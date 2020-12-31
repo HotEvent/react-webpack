@@ -5,7 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin  = require("css-minimizer-webpack-plugin");
 module.exports = merge(common, {
     mode: 'production',
     // devtool: 'source-map',
@@ -59,7 +59,7 @@ module.exports = merge(common, {
     optimization: {
         minimizer: [
             new TerserPlugin(),
-            new OptimizeCSSAssetsPlugin({ cssProcessorOptions: { map: { inline: false, annotation: true, } } })
+            new CssMinimizerPlugin()
         ],
         splitChunks: {
             cacheGroups: {

@@ -221,7 +221,7 @@ ReactDOM.render(<
     </ApolloProvider>
 </Provider>, document.getElementById('root'));
 if (module.hot) {
-    module.hot.accept('./Test', function() {
+    module.hot.accept('./Foo', function() {
         // ReactDOM.render(<Test>1<div></div><div></div></Test>, document.getElementById('root'));
 
         ReactDOM.render(<
