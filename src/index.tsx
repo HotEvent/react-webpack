@@ -9,6 +9,7 @@ import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
 import 'antd/dist/antd.less';
+import './origin';
 // import './styles/style.scss';
 import Foo from './Foo';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
