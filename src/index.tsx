@@ -14,7 +14,7 @@ import Foo from './Foo';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Pro from './Pro';
 import { Test } from "./Test";
-import { Heap, Stack } from './origin';
+import { Stack, Heap } from './datastc';
 const client = new ApolloClient({
     uri: 'http://localhost:5000/graphql',
     defaultOptions: {
