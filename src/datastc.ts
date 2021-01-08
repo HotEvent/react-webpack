@@ -179,7 +179,7 @@ export class Scope {
 }
 
 export interface Function {
-    name: string
+    name?: string
     scope: Scope
     args: string[]
     code: string
