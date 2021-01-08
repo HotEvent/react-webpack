@@ -92,15 +92,39 @@ class Heap<T>{
 
     shiftDown(nodeIndex: number) {
         let node = this.queue[nodeIndex];
+
         let leftIndex = this.getLeftIndex(nodeIndex);
         let leftNode = this.queue[leftIndex];
+
         let rightIndex = this.getRightIndex(nodeIndex);
         let rightNode = this.queue[rightIndex];
+
         let leftHigh = this.compare(leftNode, rightNode);
+
         if (leftHigh) {
             let highNode = leftNode;
+            let highIndex = leftIndex;
+
+            let nodeHigh = this.compare(node, highNode);
+            if (nodeHigh) {
+                console.log(`over`)
+            } else {
+                this.queue[highIndex] = node;
+                this.queue[nodeIndex] = highNode;
+                this.shiftDown(highIndex);
+            }
         } else {
             let highNode = rightNode;
+            let highIndex = rightIndex;
+            
+            let nodeHigh = this.compare(node, highNode);
+            if (nodeHigh) {
+                console.log(`over`);
+            } else {
+                this.queue[highIndex] = node;
+                this.queue[nodeIndex] = highNode;
+                this.shiftDown(highIndex);
+            }
         }
     }
 
