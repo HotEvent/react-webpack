@@ -9,12 +9,12 @@ import { switchMap, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from 'rxjs';
 import 'antd/dist/antd.less';
-import './origin';
 // import './styles/style.scss';
 import Foo from './Foo';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Pro from './Pro';
 import { Test } from "./Test";
+import { Heap } from './origin';
 const client = new ApolloClient({
     uri: 'http://localhost:5000/graphql',
     defaultOptions: {
@@ -158,7 +158,7 @@ function parseTagNameArray(tagNameArray: string[]) {
                     if (stack.isEmpty()) {
                         return node;
                     } else {
-                        
+
                     }
                 } else {
                     throw 'boom!';
@@ -222,7 +222,7 @@ ReactDOM.render(<
     </ApolloProvider>
 </Provider>, document.getElementById('root'));
 if (module.hot) {
-    module.hot.accept('./Foo', function() {
+    module.hot.accept('./Foo', function () {
         // ReactDOM.render(<Test>1<div></div><div></div></Test>, document.getElementById('root'));
 
         ReactDOM.render(<
@@ -232,4 +232,25 @@ if (module.hot) {
             </ApolloProvider>
         </Provider>, document.getElementById('root'));
     })
-  }
+}
+
+
+const heap = new Heap<number>([], (a, b) => {
+    return a > b;
+});
+
+heap.insert(5);
+console.log(heap.peek() === 5)
+heap.insert(1);
+console.log(heap.peek() === 5)
+heap.insert(2);
+console.log(heap.peek() === 5)
+heap.insert(10);
+console.log(heap.peek() === 10)
+heap.insert(3);
+console.log(heap.peek() === 10)
+heap.remove();
+console.log(heap.peek() === 5)
+heap.insert(5)
+heap.insert(99)
+console.log(heap.queue)

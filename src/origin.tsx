@@ -12,7 +12,7 @@ function parse(code: string) {
 parse(code);
 
 
-class Heap<T>{
+export class Heap<T>{
     queue: T[] = [];
     constructor(array: T[], public compare: (a: T, b: T) => boolean) {
         let queue = this.buildHeap(array);
@@ -60,7 +60,7 @@ class Heap<T>{
 
     shiftUp(nodeIndex: number) {
         let parentIndex = this.getParentIndex(nodeIndex);
-        let parent = this.queue[nodeIndex];
+        let parent = this.queue[parentIndex];
         if (parent) {
             let node = this.queue[nodeIndex];
             let nodeHigh = this.compare(node, parent);
@@ -92,18 +92,10 @@ class Heap<T>{
 
     shiftDown(nodeIndex: number) {
         let node = this.queue[nodeIndex];
-
-        let leftIndex = this.getLeftIndex(nodeIndex);
-        let leftNode = this.queue[leftIndex];
-
-        let rightIndex = this.getRightIndex(nodeIndex);
-        let rightNode = this.queue[rightIndex];
-
-        let leftHigh = this.compare(leftNode, rightNode);
-
-        if (leftHigh) {
-            let highNode = leftNode;
-            let highIndex = leftIndex;
+        let highNodeConfig = this.getHighChildNode(nodeIndex);
+        if (highNodeConfig) {
+            let highNode = highNodeConfig.node;
+            let highIndex = highNodeConfig.index;
 
             let nodeHigh = this.compare(node, highNode);
             if (nodeHigh) {
@@ -114,22 +106,64 @@ class Heap<T>{
                 this.shiftDown(highIndex);
             }
         } else {
-            let highNode = rightNode;
-            let highIndex = rightIndex;
-            
-            let nodeHigh = this.compare(node, highNode);
-            if (nodeHigh) {
-                console.log(`over`);
-            } else {
-                this.queue[highIndex] = node;
-                this.queue[nodeIndex] = highNode;
-                this.shiftDown(highIndex);
-            }
+            console.log('over');
         }
+
+    }
+
+    getHighChildNode(nodeIndex: number) {
+        let leftIndex = this.getLeftIndex(nodeIndex);
+        let leftNode = this.queue[leftIndex];
+        if (leftNode) {
+            let rightIndex = this.getRightIndex(nodeIndex);
+            let rightNode = this.queue[rightIndex];
+            if (rightNode) {
+                let leftHigh = this.compare(leftNode, rightNode);
+                if (leftHigh) {
+                    let highNode = leftNode;
+                    let highIndex = leftIndex;
+                    return { node: highNode, index: highIndex };
+                } else {
+                    let highNode = rightNode;
+                    let highIndex = rightIndex;
+                    return { node: highNode, index: highIndex };
+                }
+            } else {
+                return {
+                    node: leftNode,
+                    index: leftIndex
+                }
+            }
+        } else {
+            return null;
+        }
+
     }
 
     peek() {
         return this.queue[0];
     }
 }
+
+
+const heap = new Heap<number>([], (a, b) => {
+    return a > b;
+});
+
+heap.insert(5);
+console.log(heap.peek() === 5)
+heap.insert(1);
+console.log(heap.peek() === 5)
+heap.insert(2);
+console.log(heap.peek() === 5)
+heap.insert(10);
+console.log(heap.peek() === 10)
+heap.insert(3);
+console.log(heap.peek() === 10)
+heap.remove();
+console.log(heap.peek() === 5)
+heap.insert(5)
+heap.insert(99)
+console.log(heap.queue)
+
 
