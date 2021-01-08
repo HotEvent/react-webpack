@@ -1,3 +1,4 @@
+
 let code = `
 foo()
 function foo(){
@@ -145,25 +146,32 @@ export class Heap<T>{
     }
 }
 
+export class Stack<T = any> {
+    constructor(private array: T[]) {
 
+    }
+
+    get length() {
+        return this.array.length;
+    }
+
+    isEmpty() {
+        return this.array.length === 0;
+    }
+    push(item: T) {
+        return this.array.push(item);
+    }
+    pop() {
+        return this.array.pop();
+    }
+    get top() {
+        return this.array[this.array.length - 1];
+    }
+}
 const heap = new Heap<number>([], (a, b) => {
     return a > b;
 });
 
-heap.insert(5);
-console.log(heap.peek() === 5)
-heap.insert(1);
-console.log(heap.peek() === 5)
-heap.insert(2);
-console.log(heap.peek() === 5)
-heap.insert(10);
-console.log(heap.peek() === 10)
-heap.insert(3);
-console.log(heap.peek() === 10)
-heap.remove();
-console.log(heap.peek() === 5)
-heap.insert(5)
-heap.insert(99)
-console.log(heap.queue)
+const stack = new Stack<any>([]);
 
 

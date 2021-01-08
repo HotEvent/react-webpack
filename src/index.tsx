@@ -14,7 +14,7 @@ import Foo from './Foo';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Pro from './Pro';
 import { Test } from "./Test";
-import { Heap } from './origin';
+import { Heap, Stack } from './origin';
 const client = new ApolloClient({
     uri: 'http://localhost:5000/graphql',
     defaultOptions: {
@@ -69,28 +69,7 @@ const rootReducer = combineReducers({ table: tableReducer, name: nameReducer });
 const epicMiddleware = createEpicMiddleware();
 let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(epicMiddleware)));
 epicMiddleware.run(rootEpic);
-class Stack<T = any> {
-    constructor(private array: T[]) {
 
-    }
-
-    get length() {
-        return this.array.length;
-    }
-
-    isEmpty() {
-        return this.array.length === 0;
-    }
-    push(item: T) {
-        return this.array.push(item);
-    }
-    pop() {
-        return this.array.pop();
-    }
-    get top() {
-        return this.array[this.array.length - 1];
-    }
-}
 let source = `
 <div>
     <a><span></span></a>
