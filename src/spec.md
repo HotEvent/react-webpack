@@ -124,7 +124,7 @@ let s1 = String(stringObj); //foo
 条款6-9定义ECMAScript程序工作的执行环境。
 条款10-16定义实际的ECMAScript程序语言包含的句法编码和所有语言特性的执行语义。
 条款17-26定义ECMAScript标准库。它们包含所有可以找到的，用在ECMAScript程序中执行的标准对象。
-条款27描述用于原子对象访问SharedArrayBuffer-backed内存和方法的内存一致性模型。
+条款27描述用于原子性对象访问SharedArrayBuffer-backed内存和方法的内存一致性模型。
 
 
 
