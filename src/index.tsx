@@ -16,6 +16,7 @@ import Pro from './Pro';
 import { Test } from "./Test";
 import { Stack, Heap } from './datastc';
 import { isSplitSymbol } from './utils/string';
+import { IFrame } from './IFrame';
 const client = new ApolloClient({
     uri: 'http://localhost:5000/graphql',
     defaultOptions: {
@@ -528,7 +529,7 @@ function getPropsCode(props: any) {
 ReactDOM.render(<
     Provider store={store}>
     <ApolloProvider client={client}>
-        <Foo />
+        <IFrame />
     </ApolloProvider>
 </Provider>, document.getElementById('root'));
 if (module.hot) {
@@ -538,7 +539,7 @@ if (module.hot) {
         ReactDOM.render(<
             Provider store={store}>
             <ApolloProvider client={client}>
-                <Foo />
+                <IFrame />
             </ApolloProvider>
         </Provider>, document.getElementById('root'));
     })
