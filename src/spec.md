@@ -118,7 +118,10 @@ let s1 = String(stringObj); //foo
 4.3.38 inherited property（继承属性）
 对象的属性，不是对象的自有属性，但是是对象的属性中的一个属性（例如自有和继承）
 
-
+4.4 Organization of This Specification（这份规范是如何组织的）
+这份规范接下来的内容是这样组织的：
+条款5定义用于这份规范的符号约定。
+条款6-9定义ECMAScript程序工作的执行环境。
 
 
 
