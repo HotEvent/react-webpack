@@ -111,7 +111,7 @@ function parseTag(source: string) {
 }
 
 let tagNameArray = parseTag(source);
-console.log(tagNameArray);
+// console.log(tagNameArray);
 
 interface Node {
     tag?: string
@@ -170,10 +170,10 @@ function parseTagNameArray(tagNameArray: string[]) {
 
 let tree = parseTagNameArray(tagNameArray);
 
-console.log(tree);
+// console.log(tree);
 
 let s = getCode(tree);
-console.log(s);
+// console.log(s);
 
 function parseTagNameArray2(tagNameArray: string[], stack: Stack<Node>) {
     if (tagNameArray.length === 0) {
@@ -550,18 +550,18 @@ const heap = new Heap<number>([], (a, b) => {
     return a > b;
 });
 
-heap.insert(5);
-console.log(heap.peek() === 5)
-heap.insert(1);
-console.log(heap.peek() === 5)
-heap.insert(2);
-console.log(heap.peek() === 5)
-heap.insert(10);
-console.log(heap.peek() === 10)
-heap.insert(3);
-console.log(heap.peek() === 10)
-heap.remove();
-console.log(heap.peek() === 5)
-heap.insert(5)
-heap.insert(99)
-console.log(heap.queue)
+// heap.insert(5);
+// console.log(heap.peek() === 5)
+// heap.insert(1);
+// console.log(heap.peek() === 5)
+// heap.insert(2);
+// console.log(heap.peek() === 5)
+// heap.insert(10);
+// console.log(heap.peek() === 10)
+// heap.insert(3);
+// console.log(heap.peek() === 10)
+// heap.remove();
+// console.log(heap.peek() === 5)
+// heap.insert(5)
+// heap.insert(99)
+// console.log(heap.queue)

@@ -126,7 +126,11 @@ let s1 = String(stringObj); //foo
 条款17-26定义ECMAScript标准库。它们包含所有可以找到的，用在ECMAScript程序中执行的标准对象。
 条款27描述用于原子性对象访问SharedArrayBuffer-backed内存和方法的内存一致性模型。
 
-
+5 Notational Conventions（符号约定）
+5.1 Syntactic and Lexical Grammars（句法和词法语法）
+5.1.1 Context-Free Grammars（上下文自由语法）
+一个上下文自由语法由一些产品组成。每个产品有一个抽象符号呼叫一个非终止符作为左边，同时一个零个或多个非终止符和终止符的序列作为右边。在每一个语法中，终止符是从指定的字母表中提取的。
+一个产品链是有且只有一个非终止符号，在右边沿着零到多个终止符的一个产品。
 
 
 
