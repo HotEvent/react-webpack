@@ -126,6 +126,7 @@ let s1 = String(stringObj); //foo
 条款17-26定义ECMAScript标准库。它们包含所有可以找到的，用在ECMAScript程序中执行的标准对象。
 条款27描述用于原子性对象访问SharedArrayBuffer-backed内存和方法的内存一致性模型。
 
+
 5 Notational Conventions（符号约定）
 5.1 Syntactic and Lexical Grammars（句法和词法语法）
 5.1.1 Context-Free Grammars（上下文自由语法）

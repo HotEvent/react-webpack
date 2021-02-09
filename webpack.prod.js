@@ -62,13 +62,7 @@ module.exports = merge(common, {
             new CssMinimizerPlugin()
         ],
         splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all'
-                }
-            }
+            chunks: 'all',
         }
     },
     plugins: [
