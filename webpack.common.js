@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const path = require('path')
 module.exports = {
     entry: {
         app: './src/index.tsx',
@@ -28,6 +27,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        }
         // plugins:[new TsconfigPathsPlugin({})]
     },
     plugins: [

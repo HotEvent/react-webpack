@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 var path = require("path");
 
@@ -15,8 +15,8 @@ module.exports = merge(common, {
         host:'0.0.0.0',
         port:'4001'
     },
-    // optimization:{
-    //     chunkIds:"named"
+    // optimization: {
+    //     moduleIds: 'named'
     // },
     module:{
         rules:[
@@ -46,8 +46,11 @@ module.exports = merge(common, {
                     {
                         loader: "less-loader",
                         options: {
-                            // modifyVars: antdVar,
-                            javascriptEnabled: true,
+                            lessOptions: {
+                                // modifyVars: antdVar,
+                                javascriptEnabled: true,
+                            }
+
                         },
                     }
                 ]

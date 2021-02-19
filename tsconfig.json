@@ -13,6 +13,11 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
         "typeRoots": [
             "node_modules/@types"
         ],
