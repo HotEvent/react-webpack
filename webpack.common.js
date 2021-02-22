@@ -35,11 +35,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({ "process.env.PUBLIC_URL": JSON.stringify(".") }),
         new HtmlWebpackPlugin({
-            title: 'Development',
-            template: './src/index.html'
-        }),
-        // new ScriptExtHtmlWebpackPlugin({
-        //     module: 'app'
-        // })
+            template: './public/index.html'
+        })
     ],
 };

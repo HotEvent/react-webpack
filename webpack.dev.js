@@ -10,7 +10,7 @@ module.exports = merge(common, {
         publicPath: "/",
     },
     devServer: {
-        static: './src/static',
+        static: './public',
         historyApiFallback: true,
         host:'0.0.0.0',
         port:'4001'

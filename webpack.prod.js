@@ -1,10 +1,10 @@
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const common = require('./webpack.common.js');
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CssMinimizerPlugin  = require("css-minimizer-webpack-plugin");
 module.exports = merge(common, {
     mode: 'production',
@@ -14,12 +14,6 @@ module.exports = merge(common, {
         path: path.resolve(__dirname, './dist'),
         publicPath: "/",
     },
-    // stats: {
-    //     // Examine all modules
-    //     maxModules: Infinity,
-    //     // Display bailout reasons
-    //     optimizationBailout: true
-    // },
     module: {
         rules: [
             {
@@ -66,17 +60,24 @@ module.exports = merge(common, {
         }
     },
     plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: 'src/static' }
-            ]
-        }),
+        new CopyWebpackPlugin(
+            {
+                patterns: [
+                    {
+                        from: 'public',
+                        globOptions: {
+                            ignore: ['**/index.html']
+                        }
+                    }
+                ],
+
+            }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: "[name].[contenthash].css",
             chunkFilename: "[id].[contenthash].css"
         }),
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin()
     ]
 });
