@@ -1,0 +1,11 @@
+query MyQuery {
+  allTodos {
+    edges {
+      node {
+        done
+        due
+        id
+      }
+    }
+  }
+}
