@@ -10,6 +10,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: 'http://localhost:5000/graphql',
 });
+
+export { client };
 epicMiddleware.run(rootEpic);
 ReactDOM.render(
   <ApolloProvider client={client}>
