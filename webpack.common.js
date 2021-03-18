@@ -1,43 +1,41 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const tsImportPluginFactory = require('ts-import-plugin');
+const path = require('path')
 module.exports = {
     entry: {
         app: './src/index.tsx',
     },
     module: {
         rules: [
-            {
-                test: /\.(ts|tsx)$/,
-                loader: 'ts-loader',
-                exclude: /node_modules/,
-                options: {
-                    transpileOnly: true,
-                    getCustomTransformers: () => ({
-                        before: [tsImportPluginFactory({
-                            libraryName: 'antd',
-                            libraryDirectory: 'es',
-                            style: 'css'
-                        })]
-                    })
-                }
+            {       
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            experimentalWatchApi: true,
+                        },
+                    },],
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader'
-                ]
+                type: 'asset/resource'
             }
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        }
+        // plugins:[new TsconfigPathsPlugin({})]
     },
     plugins: [
         new webpack.DefinePlugin({ "process.env.PUBLIC_URL": JSON.stringify(".") }),
         new HtmlWebpackPlugin({
-            title: 'Development',
-            template: './src/index.html'
+            template: './public/index.html'
         })
     ],
 };

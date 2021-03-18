@@ -8,9 +8,16 @@
         "allowJs": true,
         "jsx": "react",
         "rootDir": "src",
+        "baseUrl": "./",
+        "lib": ["ESNext","DOM"],
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
         "typeRoots": [
             "node_modules/@types"
         ],
