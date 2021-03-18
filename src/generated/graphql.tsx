@@ -509,59 +509,152 @@ export type DeleteTodoByIdInput = {
   id: Scalars['Int'];
 };
 
-export type MyQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllTodosQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  filter?: Maybe<TodoFilter>;
+}>;
 
 
-export type MyQueryQuery = (
+export type AllTodosQuery = (
   { __typename?: 'Query' }
   & { allTodos?: Maybe<(
     { __typename?: 'TodosConnection' }
-    & { edges: Array<(
-      { __typename?: 'TodosEdge' }
-      & { node?: Maybe<(
-        { __typename?: 'Todo' }
-        & Pick<Todo, 'done' | 'due' | 'id'>
-      )> }
-    )> }
+    & Pick<TodosConnection, 'totalCount'>
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Todo' }
+      & Pick<Todo, 'task' | 'nodeId'>
+    )>> }
+  )> }
+);
+
+export type CreateTodoMutationVariables = Exact<{
+  input: CreateTodoInput;
+}>;
+
+
+export type CreateTodoMutation = (
+  { __typename?: 'Mutation' }
+  & { createTodo?: Maybe<(
+    { __typename?: 'CreateTodoPayload' }
+    & Pick<CreateTodoPayload, 'clientMutationId'>
+  )> }
+);
+
+export type DeleteTodoMutationVariables = Exact<{
+  input: DeleteTodoInput;
+}>;
+
+
+export type DeleteTodoMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteTodo?: Maybe<(
+    { __typename?: 'DeleteTodoPayload' }
+    & Pick<DeleteTodoPayload, 'clientMutationId'>
   )> }
 );
 
 
-export const MyQueryDocument = gql`
-    query MyQuery {
-  allTodos {
-    edges {
-      node {
-        done
-        due
-        id
-      }
+export const AllTodosDocument = gql`
+    query AllTodos($first: Int, $offset: Int, $filter: TodoFilter) {
+  allTodos(first: $first, offset: $offset, filter: $filter) {
+    totalCount
+    nodes {
+      task
+      nodeId
     }
   }
 }
     `;
 
 /**
- * __useMyQueryQuery__
+ * __useAllTodosQuery__
  *
- * To run a query within a React component, call `useMyQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useMyQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAllTodosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMyQueryQuery({
+ * const { data, loading, error } = useAllTodosQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      offset: // value for 'offset'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
-export function useMyQueryQuery(baseOptions?: Apollo.QueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
-        return Apollo.useQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, baseOptions);
+export function useAllTodosQuery(baseOptions?: Apollo.QueryHookOptions<AllTodosQuery, AllTodosQueryVariables>) {
+        return Apollo.useQuery<AllTodosQuery, AllTodosQueryVariables>(AllTodosDocument, baseOptions);
       }
-export function useMyQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyQueryQuery, MyQueryQueryVariables>) {
-          return Apollo.useLazyQuery<MyQueryQuery, MyQueryQueryVariables>(MyQueryDocument, baseOptions);
+export function useAllTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTodosQuery, AllTodosQueryVariables>) {
+          return Apollo.useLazyQuery<AllTodosQuery, AllTodosQueryVariables>(AllTodosDocument, baseOptions);
         }
-export type MyQueryQueryHookResult = ReturnType<typeof useMyQueryQuery>;
-export type MyQueryLazyQueryHookResult = ReturnType<typeof useMyQueryLazyQuery>;
-export type MyQueryQueryResult = Apollo.QueryResult<MyQueryQuery, MyQueryQueryVariables>;
+export type AllTodosQueryHookResult = ReturnType<typeof useAllTodosQuery>;
+export type AllTodosLazyQueryHookResult = ReturnType<typeof useAllTodosLazyQuery>;
+export type AllTodosQueryResult = Apollo.QueryResult<AllTodosQuery, AllTodosQueryVariables>;
+export const CreateTodoDocument = gql`
+    mutation CreateTodo($input: CreateTodoInput!) {
+  createTodo(input: $input) {
+    clientMutationId
+  }
+}
+    `;
+export type CreateTodoMutationFn = Apollo.MutationFunction<CreateTodoMutation, CreateTodoMutationVariables>;
+
+/**
+ * __useCreateTodoMutation__
+ *
+ * To run a mutation, you first call `useCreateTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTodoMutation, { data, loading, error }] = useCreateTodoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTodoMutation(baseOptions?: Apollo.MutationHookOptions<CreateTodoMutation, CreateTodoMutationVariables>) {
+        return Apollo.useMutation<CreateTodoMutation, CreateTodoMutationVariables>(CreateTodoDocument, baseOptions);
+      }
+export type CreateTodoMutationHookResult = ReturnType<typeof useCreateTodoMutation>;
+export type CreateTodoMutationResult = Apollo.MutationResult<CreateTodoMutation>;
+export type CreateTodoMutationOptions = Apollo.BaseMutationOptions<CreateTodoMutation, CreateTodoMutationVariables>;
+export const DeleteTodoDocument = gql`
+    mutation DeleteTodo($input: DeleteTodoInput!) {
+  deleteTodo(input: $input) {
+    clientMutationId
+  }
+}
+    `;
+export type DeleteTodoMutationFn = Apollo.MutationFunction<DeleteTodoMutation, DeleteTodoMutationVariables>;
+
+/**
+ * __useDeleteTodoMutation__
+ *
+ * To run a mutation, you first call `useDeleteTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTodoMutation, { data, loading, error }] = useDeleteTodoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTodoMutation, DeleteTodoMutationVariables>) {
+        return Apollo.useMutation<DeleteTodoMutation, DeleteTodoMutationVariables>(DeleteTodoDocument, baseOptions);
+      }
+export type DeleteTodoMutationHookResult = ReturnType<typeof useDeleteTodoMutation>;
+export type DeleteTodoMutationResult = Apollo.MutationResult<DeleteTodoMutation>;
+export type DeleteTodoMutationOptions = Apollo.BaseMutationOptions<DeleteTodoMutation, DeleteTodoMutationVariables>;
