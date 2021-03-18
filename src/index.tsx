@@ -9,6 +9,14 @@ const store = configureStore();
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: 'http://localhost:5000/graphql',
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'network-only',
+    },
+    watchQuery: {
+      fetchPolicy: 'network-only',
+    },
+  },
 });
 
 export { client };
