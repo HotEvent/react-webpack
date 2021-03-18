@@ -7,6 +7,8 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
+import { Route } from 'react-router-dom';
+import { Todo } from '@/pages/todo/Todo';
 const { Header, Sider, Content } = Layout;
 export const Main: React.FC = (props) => {
   const state = {
@@ -46,7 +48,9 @@ export const Main: React.FC = (props) => {
             minHeight: 280,
           }}
         >
-          Content
+          <Route path="/app/todo">
+            <Todo />
+          </Route>
         </Content>
       </Layout>
     </Layout>
