@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '@/styles/style.scss';
-import { AppState } from './reducers';
-const Node: React.FC<{ text: string }> = (props) => {
-  return <div>{props.text}</div>;
-};
+import { AppState } from '@/reducers';
+import { Login } from '@/layouts/Login';
+import { Main } from '@/layouts/Main';
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,11 +17,11 @@ export const App: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/">
-          <div className="foo">
-            12
-            <span>456</span>
-          </div>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/app">
+          <Main />
         </Route>
       </Switch>
     </Router>
