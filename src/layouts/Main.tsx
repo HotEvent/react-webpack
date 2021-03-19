@@ -26,7 +26,7 @@ export const Main: React.FC = (props) => {
             <Link to="/app/todo/foo">foo</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
+            <Link to="/app/user">user</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -51,6 +51,7 @@ export const Main: React.FC = (props) => {
           <Route path="/app/todo">
             <Todo />
           </Route>
+          <Route path="/app/user"></Route>
         </Content>
       </Layout>
     </Layout>
