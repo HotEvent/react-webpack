@@ -247,7 +247,7 @@ export default observer(() => {
             });
             console.log(values);
             message.success('提交成功');
-            // actionRef.current.reload();
+            actionRef.current.reload();
             return true;
           }}
         >
