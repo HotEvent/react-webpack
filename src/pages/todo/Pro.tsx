@@ -14,6 +14,7 @@ import ProForm, {
   ProFormDateRangePicker,
   ProFormSelect,
   ProFormText,
+  ProFormSwitch,
 } from '@ant-design/pro-form';
 import {
   AllTodosDocument,
@@ -51,11 +52,11 @@ interface GithubIssueItem {
   closed_at?: string;
 }
 const columns: ProColumns<{ nodeId: string; task: string; done: boolean }>[] = [
-  {
-    dataIndex: 'index',
-    valueType: 'indexBorder',
-    width: 48,
-  },
+  // {
+  //   dataIndex: 'index',
+  //   valueType: 'indexBorder',
+  //   width: 48,
+  // },
   {
     title: '标题',
     dataIndex: 'task',
@@ -246,7 +247,7 @@ export default observer(() => {
             });
             console.log(values);
             message.success('提交成功');
-            actionRef.current.reload();
+            // actionRef.current.reload();
             return true;
           }}
         >
@@ -258,12 +259,7 @@ export default observer(() => {
               tooltip="最长为 24 位"
               placeholder="请输入名称"
             />
-            <ProFormText
-              width="md"
-              name="done"
-              label="完成情况"
-              placeholder="请输入"
-            />
+            <ProFormSwitch initialValue={false} name="done" label="是否完成" />
           </ProForm.Group>
           {/* <ProForm.Group>
         <ProFormText width="md" name="contract" label="合同名称" placeholder="请输入名称" />
