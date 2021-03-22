@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Link, Route } from 'react-router-dom';
 import { Todo } from '@/pages/todo/Todo';
+import { Demo } from '@/pages/demo/Demo';
 const { Header, Sider, Content } = Layout;
 export const Main: React.FC = (props) => {
   const state = {
@@ -26,7 +27,7 @@ export const Main: React.FC = (props) => {
             <Link to="/app/todo/foo">foo</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
-            <Link to="/app/user">user</Link>
+            <Link to="/app/demo">demo</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -52,6 +53,9 @@ export const Main: React.FC = (props) => {
             <Todo />
           </Route>
           <Route path="/app/user"></Route>
+          <Route path="/app/demo">
+            <Demo />
+          </Route>
         </Content>
       </Layout>
     </Layout>

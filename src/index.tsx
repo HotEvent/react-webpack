@@ -11,15 +11,17 @@ const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
   defaultOptions: {
     query: {
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'no-cache',
     },
     watchQuery: {
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'no-cache',
     },
   },
 });
 
-export { client };
+const foo = { name: 123 };
+
+export { client, foo };
 epicMiddleware.run(rootEpic);
 ReactDOM.render(
   <ApolloProvider client={client}>

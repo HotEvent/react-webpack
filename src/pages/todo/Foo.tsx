@@ -3,6 +3,8 @@ import { Button, Form, Input, InputNumber, Select, Table } from 'antd';
 import { TablePaginationConfig } from 'antd/lib/table';
 import { gql, useLazyQuery } from '@apollo/client';
 import { useAllTodosLazyQuery } from '@/generated/graphql';
+import { useLocalObservable } from 'mobx-react-lite';
+import { FooService } from './foo.service';
 const { Option } = Select;
 
 const columns = [
@@ -49,6 +51,7 @@ const getVariables = (pagination: TablePaginationConfig, formData: any) => {
 };
 
 export default function Foo() {
+  const fooService = useLocalObservable(() => new FooService());
   const [form] = Form.useForm();
   const [pagination, setPagination] = useState(initPagination);
   const [loadGreeting, { called, loading, data }] = useAllTodosLazyQuery({
