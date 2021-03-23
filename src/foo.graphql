@@ -7,6 +7,14 @@
         
       }
     }
+    allUsers(first:$first,offset: $offset,filter:$filter) {
+      totalCount
+      nodes{
+        name
+        id
+        
+      }
+    }
   }
 
   mutation CreateTodo($input: CreateTodoInput!) {
